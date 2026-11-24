@@ -1,0 +1,21 @@
+== 05_materials
+{
+  "status": "ok",
+  "result": {},
+  "stdout": "gold nodes: 16\nrubber nodes: 7\nMATERIALS: ['MAT_Black_Metal', 'MAT_Gold_TitaniumGold', 'MAT_Mark_Etch', 'MAT_Red_Indicator', 'MAT_Rubber_Grip', 'MAT_Sight_Black', 'MAT_Steel_Bore', 'MAT_Studio_Backdrop']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== 11_slide
+> 718v/423f\n  boolean SM_Cutter_MuzzleNotch: 718v/423f -> 760v/456f\n  boolean SM_Cutter_Bore: 760v/456f -> 889v/522f\nSM_Slide_A: tris=1774 width=32.0mm length=243.0mm height=43.2mm\n  bbox X 30.0..273.0  Y -16.0..16.0  Z 106.8..150.0\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\nslide objects: ['SM_Slide_A']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== 14_controls
+4v/3107f\n  WARNING: boolean produced no topology change\nSM_Controls_A: tris=6368 width=35.9mm length=132.4mm height=62.3mm\n  bbox X 0.8..133.2  Y -18.1..17.8  Z 79.5..141.8\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\ncontrol materials: ['MAT_Gold_TitaniumGold', 'MAT_Red_Indicator', 'MAT_Gold_TitaniumGold']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== 15_grip
+ 144v/146f -> 166v/164f\n  boolean SM_Cutter_ScrewSlotL: 144v/146f -> 154v/148f\nSM_Grip_A: tris=4572 width=37.0mm length=62.3mm height=94.7mm\n  bbox X 26.2..88.5  Y -18.5..18.5  Z 9.8..104.5\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\ngrip materials: ['MAT_Rubber_Grip', 'MAT_Rubber_Grip', 'MAT_Black_Metal']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== render
+
+  "result": {},
+  "stdout": "RENDERED CAM_Hero_34 -> C:\\Teerth Stuff\\Games Stuff\\projects\\3dmodels\\Models\\golden-desert-eagle\\renders\\hero_34.png in 111s\nRENDERED CAM_Side -> C:\\Teerth Stuff\\Games Stuff\\projects\\3dmodels\\Models\\golden-desert-eagle\\renders\\side.png in 102s\n"
+}
+DONE_EXIT:0

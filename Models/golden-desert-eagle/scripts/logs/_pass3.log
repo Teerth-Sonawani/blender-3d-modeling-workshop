@@ -1,0 +1,15 @@
+== 12_barrel
+M_Barrel_A: tris=2672 width=24.2mm length=136.5mm height=26.1mm\n  bbox X 134.0..270.5  Y -12.8..11.4  Z 115.8..141.9\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\nbarrel materials: ['MAT_Gold_TitaniumGold', 'MAT_Gold_TitaniumGold']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== 14_controls
+94 width=36.7mm length=132.4mm height=62.3mm\n  bbox X 0.8..133.2  Y -18.1..18.6  Z 79.5..141.8\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\ncontrol materials: ['MAT_Gold_TitaniumGold', 'MAT_Red_Indicator', 'MAT_Gold_TitaniumGold']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== 15_grip
+nSM_Grip_A: tris=4580 width=37.0mm length=60.1mm height=94.7mm\n  bbox X 28.4..88.5  Y -18.5..18.5  Z 9.8..104.5\n  health: loose_verts=0 loose_edges=0 non_manifold_edges=0 degenerate_faces=0\ngrip materials: ['MAT_Rubber_Grip', 'MAT_Rubber_Grip', 'MAT_Black_Metal']\nInfo: Saved as \"golden-desert-eagle.blend\"\n"
+}
+== render
+se RuntimeError(
+RuntimeError: blender-mcp closed the stream.
+stderr:
+[11/12/26 00:32:25] INFO     Processing request of type           server.py:733
+                             CallToolRequest

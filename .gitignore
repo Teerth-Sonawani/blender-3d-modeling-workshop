@@ -1,0 +1,28 @@
+# Blender backups and temp files
+*.blend1
+*.blend2
+*.blend@
+*.crash.txt
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Model gate snapshots (large intermediates; keep on disk, not in git)
+Models/*/versions/
+
+# Superseded renders kept on disk for comparison
+Models/*/renders/*_prev.png
+
+# Local tooling
+.venv/
+__pypackages__/
+_preview/
+
+# Editor / agent local state
+.freebuff/

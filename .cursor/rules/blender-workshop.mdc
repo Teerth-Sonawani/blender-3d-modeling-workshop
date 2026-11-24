@@ -1,0 +1,18 @@
+---
+description: Blender 3D modeling workshop rules
+alwaysApply: true
+---
+
+# Blender 3D modeling workshop
+
+This project is used **only** to produce 3D models in Blender via the official Blender
+MCP extension and the skill pack in `.cursor/skills/`.
+
+- Read `AGENTS.md` at the project root before any work. It is the operating manual.
+- Run `python scripts/preflight.py`, then verify MCP with `get_objects_summary`.
+- Every request gets its own folder: `Models/<subject-slug>/` (use
+  `python scripts/new_model.py <slug>`).
+- Read `blender-director` and the relevant discipline/style SKILL.md files before modeling.
+- One Blender unit = one meter. `SM_` / `MAT_` / `COL_` naming. Save at every phase gate.
+- Never claim a model, render, or export that does not exist on disk.
+- Do not add web apps, docs sites, or unrelated code to this folder.

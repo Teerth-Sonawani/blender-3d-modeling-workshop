@@ -1,0 +1,35 @@
+# Normalise text files, leave binaries alone
+* text=auto eol=lf
+
+*.py    text
+*.md    text
+*.json  text
+*.mdc   text
+*.yml   text
+*.yaml  text
+*.sh    text
+
+# Blender, exchange formats and images are binary
+*.blend  binary
+*.blend1 binary
+*.glb    binary
+*.gltf   binary
+*.fbx    binary
+*.obj    binary
+*.mtl    text
+*.usd    binary
+*.usda   text
+*.abc    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.webp   binary
+*.exr    binary
+*.hdr    binary
+*.tif    binary
+*.tiff   binary
+
+# Keep exported assets out of diffs and language stats
+Models/**/exports/** linguist-generated=true
+Models/**/renders/** linguist-generated=true
+Models/**/refs/**    linguist-documentation=true
