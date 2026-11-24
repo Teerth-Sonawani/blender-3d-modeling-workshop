@@ -1,47 +1,124 @@
+<div align="center">
+
 # Blender 3D Modeling Workshop
 
-A prompt-driven 3D modeling workspace. Any coding agent opened in this folder becomes a
-Blender artist: it takes a request like *"Make a 3d model for a realistic gun from ww2"*,
-creates `Models/ww2-rifle/`, and builds the model in Blender through **Blender MCP** using
-the **[blender-skills](https://github.com/arjun988/blender-skills)** pack (94 specialist
-skills + references).
+**Any coding agent opened in this folder becomes a Blender artist.**
 
-![Golden Desert Eagle — hero render](Models/golden-desert-eagle/renders/hero_34.png)
+It takes a request, builds the model in Blender over MCP, renders it, exports it,
+and then proves the result with a script that re-measures the files on disk.
 
-Every asset is built to measured real-world dimensions, documented in a `NOTES.md` that
-records what was actually delivered, and audited by a script that re-measures the exported
-files and fails when the record and the geometry disagree.
+[![Blender](https://img.shields.io/badge/Blender-5.2_LTS-E87D0D?logo=blender&logoColor=white)](https://www.blender.org/)
+[![MCP](https://img.shields.io/badge/MCP-Blender%20Lab%20v1.0.3-6E4AFF)](https://www.blender.org/lab/mcp-server/)
+[![Models](https://img.shields.io/badge/models-3-brightgreen)](#the-models)
+[![Audit](https://img.shields.io/badge/audit-3%2F3%20PASS-success)](#the-auditor)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+</div>
+
+<table>
+<tr>
+<td align="center" width="33%">
+<a href="Models/mosin-nagant-m91-30/NOTES.md"><img src="docs/img/mosin-nagant.jpg" width="100%"></a>
+<br><sub><b>Mosin-Nagant M91/30</b><br>25,940 tris · WW2 rifle</sub>
+</td>
+<td align="center" width="33%">
+<a href="Models/mauser-c96-original/NOTES.md"><img src="docs/img/mauser-c96.jpg" width="100%"></a>
+<br><sub><b>Mauser C96</b><br>33,277 tris · 1896 pistol</sub>
+</td>
+<td align="center" width="33%">
+<a href="Models/golden-desert-eagle/NOTES.md"><img src="docs/img/desert-eagle.jpg" width="100%"></a>
+<br><sub><b>Golden Desert Eagle</b><br>25,458 tris · .50 AE</sub>
+</td>
+</tr>
+</table>
+
+## Why this exists
+
+Most AI-generated 3D work is unverifiable. The agent says the rifle is 1.2 m long and
+25,000 triangles, and nothing checks whether that is true — or whether the render it shows
+you came from that file at all.
+
+Here the claim and the file have to agree, and a script decides. Every model ships with a
+`NOTES.md` that records what was measured, what was corrected when an earlier claim turned
+out wrong, and what is still missing. Then `verify_model.py` re-opens the exports and fails
+the delivery if any of it has drifted.
+
+## The auditor
+
+```bash
+python scripts/verify_model.py --all
+```
 
 ```
-Blender 5.2  ⇐  MCP extension (localhost:9876)  ⇐  blender-mcp (stdio)  ⇐  your agent
+Model: mauser-c96-original
+  [ OK ] exports/<slug>.glb — 0.99 MiB — 33,277 tris, 17 meshes, 4 materials,
+                              0 textures, 0.2865 x 0.1538 x 0.0368 m
+  [ OK ] exports/<slug>.fbx — 0.87 MiB — 17 SM_ meshes, UCX_=8, COL_=0
+  [ OK ] collision — 4 UCX proxies (FBX)
+RESULT: PASS
+
+SUMMARY: 3/3 model(s) PASS
 ```
 
-## Requirements
+It parses the GLB for triangles, world-space bounds, meshes, materials and embedded textures;
+scans the FBX for `UCX_`/`COL_` collision; checks that every render is a real, non-blank
+image rather than a viewport grab; and compares all of it against the `<!-- verify:begin -->`
+block in each record. Exit code 1 means the record and the files disagree.
+
+## How a model gets built
+
+| Step | What happens |
+|---|---|
+| **1 · Scaffold** | `python scripts/new_model.py <slug>` creates `Models/<slug>/` and a brief skeleton |
+| **2 · Plan** | A parts manifest is written before any geometry: every sub-part, its measured dimensions, its tri budget, its detail spec |
+| **3 · Build** | Parts are built in dependency order, one per MCP call, each passing its own gate — measured dimensions, programmatically counted details, an inspected close-up render |
+| **4 · Assemble** | UVs, materials, lights, hero and detail renders |
+| **5 · Export** | GLB + FBX from a duplicate of the scene, then a GLB re-import round-trip |
+| **6 · Prove** | `verify_model.py` re-measures everything; the delivery is not done until it passes |
+
+The part-first loop is the part that matters. A model is not finished because the hero shot
+looks right — it is finished when each part is measurably correct on its own.
+
+## The models
+
+| Model | Subject | Tris | Materials | Collision | Deliverables |
+|---|---|---|---|---|---|
+| **[Mosin-Nagant M91/30](Models/mosin-nagant-m91-30/NOTES.md)** | WW2 bolt-action rifle | 25,940 | 5 (3 baked) | 4 `UCX_` | [hero](Models/mosin-nagant-m91-30/renders/hero.png) · GLB 5.1 MB · FBX 4.8 MB |
+| **[Mauser C96](Models/mauser-c96-original/NOTES.md)** | 1896 semi-automatic pistol | 33,277 | 4 | 4 `UCX_` | [hero](Models/mauser-c96-original/renders/hero.png) · GLB 1.0 MB · FBX 0.9 MB |
+| **[Golden Desert Eagle](Models/golden-desert-eagle/NOTES.md)** | .50 AE pistol, gold titanium | 25,458 | 5 | none — render-only | [hero](Models/golden-desert-eagle/renders/hero_34.png) · GLB 0.7 MB · FBX 0.5 MB |
+
+Each folder holds an editable `.blend`, the exports, the full render set, the references used,
+and the `bpy` scripts that were actually executed.
+
+The known-gaps sections are deliberate and public: no engine import has been run on any of the
+three, none ships an LOD chain, and the Desert Eagle's materials are procedural and flatten on
+export instead of shipping a baked texture set. Closing those is the work that remains.
+
+## Quick start
+
+```bash
+python scripts/preflight.py        # check Blender, the MCP extension, the client, the bridge
+```
+
+Expect `RESULT: READY`. Open Blender, leave it running, then open this folder in your agent
+and ask for a model in plain language:
+
+> Make a realistic WW2 rifle, game-ready for Unreal
+
+<details>
+<summary><b>Requirements</b></summary>
 
 | Piece | What you need |
 |---|---|
 | Blender | 5.2 LTS — built and tested on 5.2.3 |
 | MCP extension | Official Blender Lab **MCP** add-on v1.0.3, enabled with Auto Start |
-| MCP client | Official `blender-mcp` 1.30.0, installed as a `uv tool` (26 tools) |
-| Skill pack | 94 skill files + 9 shared references in `.claude/skills/` (mirror in `.cursor/skills/`). About 15 are full playbooks; the rest are short routing/art-direction notes with their own `references/` files — read the substantive ones, don't assume all 94 carry equal weight |
+| MCP client | Official `blender-mcp` 1.30.0 as a `uv tool` (26 tools) |
+| Skill pack | 94 skills + 9 shared references in `.claude/skills/` (mirror in `.cursor/skills/`) |
 | MCP configs | `.mcp.json` (Claude Code), `.cursor/mcp.json` (Cursor), `.vscode/mcp.json` |
 
-## Start a session
-
-1. **Open Blender.** The MCP extension starts its bridge automatically. To check:
-   Edit → Preferences → Add-ons → **MCP** → “Server is running” (otherwise press
-   **Start MCP Bridge Server**). Leave Blender open.
-2. **Open this folder in your agent** (Claude Code, Cursor, VS Code, …). The MCP configs are
-   already in place — restart the client once after the first open so it loads the
-   `blender` server.
-3. **Verify:**
-
-   ```bash
-   python scripts/preflight.py
-   ```
-
-   Expect `RESULT: READY`. Then ask the agent to run `get_objects_summary` — if it returns
-   JSON, the bridge is live.
+```
+Blender 5.2  ⇐  MCP extension (localhost:9876)  ⇐  blender-mcp (stdio)  ⇐  your agent
+```
 
 If the client or extension is missing on another machine:
 
@@ -50,31 +127,30 @@ uv tool install --python 3.11 \
   "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp"
 ```
 
-…and install the MCP extension from <https://www.blender.org/lab/mcp-server/>. Details in
-`docs/MCP_SETUP.md`.
+…and install the extension from <https://www.blender.org/lab/mcp-server/>. Details in
+[`docs/MCP_SETUP.md`](docs/MCP_SETUP.md).
 
-## Request a model
+</details>
 
-Just describe the object, the style, and the intended use:
+<details>
+<summary><b>Repository map</b></summary>
 
-> Make a 3d model for a realistic gun from ww2
+| Path | Purpose |
+|---|---|
+| `AGENTS.md` | **The manual.** Scope, preflight, routing, pipeline, deliverables, rules |
+| `CLAUDE.md` | Claude Code entry point → `AGENTS.md` |
+| `.cursor/rules/blender-workshop.mdc` | Always-on Cursor rule → `AGENTS.md` |
+| `.claude/skills/` | 94 skills (`*/SKILL.md`) + `references/` (pipeline, naming, budgets) |
+| `.cursor/skills/` | Mirror of the pack for Cursor |
+| `scripts/preflight.py` | Checks Blender, extension, client, configs, bridge identity, live socket |
+| `scripts/new_model.py` | Creates a standard model folder + brief skeleton |
+| `scripts/verify_model.py` | Audits a delivery against its own record (`--all` for every model) |
+| `scripts/mcp_call.py` | Fallback MCP stdio client for hosts with no MCP tools loaded |
+| `Models/` | All output, one folder per model |
+| `docs/MCP_SETUP.md` | Official MCP chain, tool catalog, install commands |
+| `docs/SKILLS_GUIDE.md` | Upstream skill index and workflows |
 
-> Model a low-poly PSX-style abandoned gas station, game-ready for Godot
-
-> Build a rigged stylized treasure chest with an opening lid animation
-
-The agent will:
-
-1. Derive a slug and scaffold `Models/<slug>/` with `NOTES.md`, `refs/`, `renders/`,
-   `textures/`, `versions/`, `exports/`.
-2. Read `blender-director` plus the relevant discipline/style skills.
-3. Block out in Blender over MCP, then detail, UV, material, light, and render.
-4. Save `<slug>.blend`, export `GLB` + `FBX`, write the validation report into `NOTES.md`,
-   and show you the hero render.
-5. Run `python scripts/verify_model.py <slug>` and report PASS — the measured export must
-   match the record before the model counts as delivered.
-
-Deliverables per model:
+Per model:
 
 ```
 Models/<slug>/
@@ -84,79 +160,30 @@ Models/<slug>/
 ├── refs/             # reference images / dimensions
 ├── renders/          # hero + front/side/top + detail close-ups
 ├── textures/         # baked maps used by the exports
+├── scripts/          # the bpy code that was actually run
 └── exports/          # <slug>.glb, <slug>.fbx
 ```
 
-## Models in this repository
+</details>
 
-Three finished assets, each with an editable `.blend`, `GLB` + `FBX` exports, a full render
-set and a record that `verify_model.py` checks against the files on disk.
-
-| Model | Subject | Tris | Materials | Export | Record |
-|---|---|---|---|---|---|
-| **[Mosin-Nagant M91/30](Models/mosin-nagant-m91-30/NOTES.md)** | WW2 bolt-action rifle | 25,940 | 5 (3 baked textures) | GLB 5.1 MB · FBX 4.8 MB | [hero](Models/mosin-nagant-m91-30/renders/hero.png) |
-| **[Mauser C96](Models/mauser-c96-original/NOTES.md)** | 1896 semi-automatic pistol | 33,277 | 4 | GLB 1.0 MB · FBX 0.9 MB | [hero](Models/mauser-c96-original/renders/hero.png) |
-| **[Golden Desert Eagle](Models/golden-desert-eagle/NOTES.md)** | .50 AE pistol, gold titanium | 25,458 | 5 | GLB 0.7 MB · FBX 0.5 MB | [hero](Models/golden-desert-eagle/renders/hero_34.png) |
-
-The Mosin and the Mauser ship `UCX_` collision proxies in their FBX files; the Desert Eagle
-is a render-only still asset and declares no collision. All three are checked with:
-
-```bash
-python scripts/verify_model.py --all     # 3/3 PASS
-```
-
-Each `NOTES.md` carries its production brief, parts manifest, measured detail spec, gate
-evidence, an audit-corrections table where an earlier claim was wrong, and a known-gaps
-section. Those gaps are the honest part: no engine import has been run on any of the three,
-none ships an LOD chain, and the Desert Eagle's materials are procedural and flatten on
-export rather than shipping a baked texture set.
-
-## Files that drive the workshop
-
-| File | Purpose |
-|---|---|
-| `AGENTS.md` | **The manual.** Scope, preflight, routing, pipeline, deliverables, rules |
-| `CLAUDE.md` | Claude Code entry point → `AGENTS.md` |
-| `.cursor/rules/blender-workshop.mdc` | Always-on Cursor rule → `AGENTS.md` |
-| `.claude/skills/` | 94 skills (`*/SKILL.md`) + `references/` (pipeline, naming, budgets) |
-| `.cursor/skills/` | Mirror of the pack for Cursor |
-| `scripts/preflight.py` | Checks Blender, extension, `blender-mcp`, configs, bridge identity, live socket |
-| `scripts/new_model.py` | Creates a standard model folder + brief skeleton |
-| `scripts/verify_model.py` | Audits a delivery: re-measures the GLB/FBX, checks the render set, compares both to the `NOTES.md` claims. `--all` audits every model |
-| `scripts/mcp_call.py` | Fallback MCP stdio client (`summarize`, `list-tools`, `exec <script>`) for hosts with no MCP tools loaded |
-| `Models/` | All output, one folder per model |
-| `docs/MCP_SETUP.md` | Official MCP chain, tool catalog, install commands |
-| `docs/SKILLS_GUIDE.md` | Upstream skill index and workflows |
-
-## Ground rules
+<details>
+<summary><b>Ground rules</b></summary>
 
 - One request → one folder. Existing models are never overwritten.
 - Real-world scale: 1 Blender unit = 1 meter.
-- Execute in Blender; don't hand back UI instructions or unexecuted code as if it ran.
+- Execute in Blender; never hand back UI instructions or unexecuted code as if it ran.
 - Save the `.blend` at every phase gate — versioned snapshots, not one overwritten file.
-- Identity detail (lettering, marks, counted grooves/serrations) is modeled before UVs —
+- Identity detail (lettering, marks, counted grooves and serrations) is modelled before UVs —
   never a blank panel where a rollmark belongs.
-- Game-target looks are baked into `textures/`, and exports are round-tripped through a GLB
-  re-import before delivery.
-- One phase per MCP call. If the bridge wedges, the agent stops and reports instead of
-  silently switching to `blender --background`.
-- If Blender isn't connected, the agent stops and tells you, rather than inventing a model.
-- Every delivery is machine-checked: `python scripts/verify_model.py --all` re-measures the
-  exports and fails on any claim that no longer matches the file on disk.
+- One part at a time, one phase per MCP call. A part passes its gate before the next begins.
+- If the bridge wedges, stop and report rather than silently switching to `blender --background`.
+- Invalid evidence is quarantined, not deleted — a blank render moves to
+  `renders/_invalid_evidence/` and the record says why.
 
-## Verify a delivery
+</details>
 
-```bash
-python scripts/verify_model.py --all          # audit every model
-python scripts/verify_model.py ww2-rifle      # audit one
-```
-
-It parses the GLB (triangles, world-space bbox, meshes, materials, embedded textures), scans
-the FBX for `UCX_`/`COL_` collision, checks every render is a real non-blank image, and
-compares all of it to the `<!-- verify:begin -->` block in `NOTES.md`. Exit code 1 means the
-record and the files disagree.
-
-## Troubleshooting
+<details>
+<summary><b>Troubleshooting</b></summary>
 
 | Symptom | Fix |
 |---|---|
@@ -164,9 +191,12 @@ record and the files disagree.
 | MCP server missing in the client | Restart the client; check your client's config file |
 | `blender-mcp` not found | `uv tool install --python 3.11 "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp"` |
 | Handshake errors / hanging calls | Wrong server package or the legacy `blender_mcp.py` addon enabled — see `docs/MCP_SETUP.md` |
-| Blender renders look wrong | Ask the agent to re-check camera/engine and re-render; renders come from the scene, not the agent's imagination |
+| Renders look wrong | Ask the agent to re-check camera/engine and re-render; renders come from the scene, not the agent's imagination |
 
-## Updating the skill pack
+</details>
+
+<details>
+<summary><b>Updating the skill pack</b></summary>
 
 The pack is vendored (MIT). To refresh it:
 
@@ -179,6 +209,8 @@ cp .upstream/LICENSE docs/blender-skills-LICENSE.md
 rm -rf .upstream
 python scripts/preflight.py
 ```
+
+</details>
 
 ## License
 
