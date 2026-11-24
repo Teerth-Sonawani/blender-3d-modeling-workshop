@@ -4,7 +4,7 @@ import bmesh
 import math
 import os
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 BLEND = os.path.join(ROOT, "mauser-c96-original.blend")
 GEO = bpy.data.collections["COL_Geo"]
 

@@ -10,7 +10,7 @@ Run through: python scripts/mcp_call.py exec models/golden-desert-eagle/scripts/
 import bpy
 import os
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\golden-desert-eagle"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\golden-desert-eagle"
 BLEND = os.path.join(ROOT, "golden-desert-eagle.blend")
 
 objects = sorted(o.name for o in bpy.data.objects)

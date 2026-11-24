@@ -7,7 +7,7 @@ import bpy
 import os
 import math
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 BLEND = os.path.join(ROOT, "mauser-c96-original.blend")
 REND = os.path.join(ROOT, "renders")
 os.makedirs(REND, exist_ok=True)

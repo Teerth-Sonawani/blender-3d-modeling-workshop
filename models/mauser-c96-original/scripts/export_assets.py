@@ -3,7 +3,7 @@ import bpy
 import os
 from mathutils import Matrix, Vector
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 EXP = os.path.join(ROOT, "exports")
 BLEND = os.path.join(ROOT, "mauser-c96-original.blend")
 os.makedirs(EXP, exist_ok=True)

@@ -20,7 +20,7 @@ import bmesh
 import bpy
 from mathutils import Matrix, Vector
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\golden-desert-eagle"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\golden-desert-eagle"
 SCRIPTS = os.path.join(ROOT, "scripts")
 RENDERS = os.path.join(ROOT, "renders")
 EXPORTS = os.path.join(ROOT, "exports")

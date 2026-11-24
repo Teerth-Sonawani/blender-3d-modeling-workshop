@@ -3,7 +3,7 @@ import bpy
 import numpy as np
 import os
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 img = bpy.data.images.load(os.path.join(ROOT, "refs", "ref_04.jpg"), check_existing=False)
 w, h = img.size
 px = np.array(img.pixels[:], dtype=np.float32).reshape(h, w, 4)[::-1]

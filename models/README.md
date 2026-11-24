@@ -1,4 +1,4 @@
-# Models
+# models
 
 One folder per model request. Slug = the **subject**, lowercase kebab-case, 2–5 words.
 

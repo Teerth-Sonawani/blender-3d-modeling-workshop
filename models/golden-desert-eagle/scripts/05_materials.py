@@ -9,7 +9,7 @@ import sys
 
 import bpy
 
-sys.path.insert(0, r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\golden-desert-eagle\scripts")
+sys.path.insert(0, r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\golden-desert-eagle\scripts")
 import de_lib  # noqa: E402
 
 importlib.reload(de_lib)

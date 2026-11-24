@@ -10,7 +10,7 @@ import sys
 
 import bpy
 
-SCRIPTS = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\golden-desert-eagle\scripts"
+SCRIPTS = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\golden-desert-eagle\scripts"
 sys.path.insert(0, SCRIPTS)
 import de_lib  # noqa: E402
 

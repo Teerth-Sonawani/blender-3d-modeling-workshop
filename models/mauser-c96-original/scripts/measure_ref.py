@@ -3,7 +3,7 @@ import bpy
 import numpy as np
 import os
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 PATH = os.path.join(ROOT, "refs", "ref_04.jpg")
 
 img = bpy.data.images.load(PATH, check_existing=False)

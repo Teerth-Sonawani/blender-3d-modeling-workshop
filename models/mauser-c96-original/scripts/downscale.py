@@ -3,7 +3,7 @@ import bpy
 import os
 import numpy as np
 
-ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\Models\mauser-c96-original"
+ROOT = r"C:\Teerth Stuff\Games Stuff\projects\3dmodels\models\mauser-c96-original"
 REND = os.path.join(ROOT, "renders")
 
 WIDTH = 1200
