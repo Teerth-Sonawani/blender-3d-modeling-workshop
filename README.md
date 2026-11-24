@@ -7,11 +7,7 @@
 It takes a request, builds the model in Blender over MCP, renders it, exports it,
 and then proves the result with a script that re-measures the files on disk.
 
-[![Blender](https://img.shields.io/badge/Blender-5.2_LTS-E87D0D?logo=blender&logoColor=white)](https://www.blender.org/)
-[![MCP](https://img.shields.io/badge/MCP-Blender%20Lab%20v1.0.3-6E4AFF)](https://www.blender.org/lab/mcp-server/)
-[![Models](https://img.shields.io/badge/models-3-brightgreen)](#the-models)
-[![Audit](https://img.shields.io/badge/audit-3%2F3%20PASS-success)](#the-auditor)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+<sub>Blender 5.2 LTS · Blender MCP v1.0.3 · 3 models · 3/3 audit PASS · MIT</sub>
 
 </div>
 
@@ -19,15 +15,15 @@ and then proves the result with a script that re-measures the files on disk.
 <tr>
 <td align="center" width="33%">
 <a href="Models/mosin-nagant-m91-30/NOTES.md"><img src="docs/img/mosin-nagant.jpg" width="100%"></a>
-<br><sub><b>Mosin-Nagant M91/30</b><br>25,940 tris · WW2 rifle</sub>
+<br><sub><b>Mosin-Nagant M91/30</b><br>25,940 tris</sub>
 </td>
 <td align="center" width="33%">
 <a href="Models/mauser-c96-original/NOTES.md"><img src="docs/img/mauser-c96.jpg" width="100%"></a>
-<br><sub><b>Mauser C96</b><br>33,277 tris · 1896 pistol</sub>
+<br><sub><b>Mauser C96</b><br>33,277 tris</sub>
 </td>
 <td align="center" width="33%">
 <a href="Models/golden-desert-eagle/NOTES.md"><img src="docs/img/desert-eagle.jpg" width="100%"></a>
-<br><sub><b>Golden Desert Eagle</b><br>25,458 tris · .50 AE</sub>
+<br><sub><b>Golden Desert Eagle</b><br>25,458 tris</sub>
 </td>
 </tr>
 </table>
