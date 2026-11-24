@@ -1,6 +1,6 @@
 """Lights, cameras and render passes for the C96 (runs inside Blender via MCP).
 
-  python scripts/mcp_call.py exec Models/mauser-c96-original/scripts/render_checks.py
+  python scripts/mcp_call.py exec models/mauser-c96-original/scripts/render_checks.py
 Optional argv-like flag via env CHECK_ONLY=1 renders just the side view.
 """
 import bpy

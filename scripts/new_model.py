@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Scaffold a new model folder under Models/.
+"""Scaffold a new model folder under models/.
 
 Usage:
     python scripts/new_model.py ww2-rifle --title "Realistic WW2 Rifle"
 
 Creates:
-    Models/<slug>/NOTES.md
-    Models/<slug>/refs/
-    Models/<slug>/renders/
-    Models/<slug>/exports/
-    Models/<slug>/versions/
-    Models/<slug>/textures/
+    models/<slug>/NOTES.md
+    models/<slug>/refs/
+    models/<slug>/renders/
+    models/<slug>/exports/
+    models/<slug>/versions/
+    models/<slug>/textures/
 
 Refuses to overwrite an existing folder unless --force is given (which only
 fills in missing pieces; it never deletes files).
@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MODELS = ROOT / "Models"
+MODELS = ROOT / "models"
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 NOTES = """# {title}
@@ -202,7 +202,7 @@ def main() -> int:
     print("Next:")
     print(f"  1. fill in the production brief in {notes.name}")
     print("  2. run python scripts/preflight.py and confirm get_objects_summary over MCP")
-    print(f"  3. save the scene as Models/{slug}/{slug}.blend before modeling")
+    print(f"  3. save the scene as models/{slug}/{slug}.blend before modeling")
     print(f"  4. before delivery: python scripts/verify_model.py {slug}")
     return 0
 

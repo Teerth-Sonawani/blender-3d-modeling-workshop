@@ -34,7 +34,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MODELS = ROOT / "Models"
+MODELS = ROOT / "models"
 
 OK = "  [ OK ]"
 FAIL = "  [FAIL]"
@@ -572,7 +572,7 @@ def main(argv: list[str]) -> int:
             pass
 
     parser = argparse.ArgumentParser(description="Verify delivered models against NOTES.md.")
-    parser.add_argument("slugs", nargs="*", help="model slugs (folder names under Models/)")
+    parser.add_argument("slugs", nargs="*", help="model slugs (folder names under models/)")
     parser.add_argument("--all", action="store_true", help="verify every model folder")
     parser.add_argument("--strict", action="store_true", help="treat warnings as failures")
     args = parser.parse_args(argv[1:])

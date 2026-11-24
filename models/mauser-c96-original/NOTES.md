@@ -125,7 +125,7 @@ ships in a scene where it is seen far away.
 ## Files on disk
 
 ```
-Models/mauser-c96-original/
+models/mauser-c96-original/
 ├── mauser-c96-original.blend        working scene, authoring space (+X muzzle, bore Z 0)
 ├── refs/                            Commons photos + mm-gridded measurement crops
 ├── renders/hero.png                 1920×1080, 3/4 view, key/fill/rim

@@ -24,7 +24,7 @@ Two systems power every job:
 
 - **Execute through MCP.** Never answer a modeling request with a UI walkthrough when a
   tool call can do it. Never claim a model exists that you did not build in Blender.
-- **One request → one folder** under `Models/`. Never model two unrelated requests into one
+- **One request → one folder** under `models/`. Never model two unrelated requests into one
   scene, never reuse a previous model's scene as scratch space.
 - **Part-first, one part at a time.** No geometry until the parts manifest exists in
   `NOTES.md`; no part begun until the one before it passes its own gate; never open a second
@@ -105,7 +105,7 @@ western, samurai, medieval) also read `historical-worlds`. Engine delivery addit
 
 Derive a slug from the **subject**, not the style: lowercase kebab-case, 2–5 words.
 
-> "Make a 3d model for a realistic gun from ww2" → `Models/ww2-rifle/`
+> "Make a 3d model for a realistic gun from ww2" → `models/ww2-rifle/`
 
 ```bash
 python scripts/new_model.py ww2-rifle --title "Realistic WW2 Rifle"
@@ -115,7 +115,7 @@ That creates the standard tree and a `NOTES.md` brief skeleton. Then fill the br
 before touching geometry.
 
 ```
-Models/<slug>/
+models/<slug>/
 ├── NOTES.md          # brief, detail spec, gate evidence, QA verdict, known gaps
 ├── <slug>.blend      # current working scene
 ├── versions/         # gate snapshots: _v01_blockout … _v04_export
@@ -191,7 +191,7 @@ a close-up render, is the only accepted order of work.
 Enumerate every sub-part a person would name when describing the object (barrel, receiver,
 bolt, magazine, trigger group, stock, buttplate, rear sight, front sight, sling swivel …).
 Split until each part has **one job**: a part doing more than ~3 distinct things is two
-parts. Write it into `Models/<slug>/NOTES.md` in build order:
+parts. Write it into `models/<slug>/NOTES.md` in build order:
 
 | # | Part | Collection | Dim spec (m) | Budget (tris) | Detail spec | Status |
 |---|---|---|---|---|---|---|
@@ -254,7 +254,7 @@ Steps 5–12 below are assembled-model phases and start only once every manifest
 packed UV atlas at consistent texel density, unified `MAT_` materials, bake for game targets,
 lights and hero renders, optimization, export, validation, round-trip.
 
-1. **Scene scaffold** — save a fresh scene as `Models/<slug>/<slug>.blend`, plus
+1. **Scene scaffold** — save a fresh scene as `models/<slug>/<slug>.blend`, plus
    collections: `COL_Blockout`, `COL_Geo`, `COL_Collision`, `COL_Lights`, `COL_Cameras`,
    `COL_Export`. If the current Blender file is dirty and not ours, ask before resetting.
    Snapshot to `versions/<slug>_v01_blockout.blend` at the end of the phase.
@@ -344,7 +344,7 @@ with `bpy` inside `execute_blender_code`. `get_scene_info`, `look`, and
 - One conceptual step per call. `print()` a short result so the returned `stdout` shows it.
 - Wrap risky code in `try/except` and print the traceback; never swallow an MCP error.
 - Save with `bpy.ops.wm.save_as_mainfile(filepath=...)` at every phase gate.
-- Keep the exact Python used for each phase in `Models/<slug>/scripts/` when practical.
+- Keep the exact Python used for each phase in `models/<slug>/scripts/` when practical.
 - Take a screenshot after blockout, after materials, and before delivery, and actually look
   at it before declaring a phase done.
 - Blender 5.2 specifics: look shader nodes up by `type`, not localized name
@@ -372,7 +372,7 @@ with `bpy` inside `execute_blender_code`. `get_scene_info`, `look`, and
 
 ## 7. Reference images
 
-If the user attaches a photo/concept, save it to `Models/<slug>/refs/`.
+If the user attaches a photo/concept, save it to `models/<slug>/refs/`.
 
 1. **Pick one canon.** Choose the single sharpest, most representative reference (or one
    measured set) and name it in `NOTES.md`. Other images are secondary. Generations differ:
@@ -420,7 +420,7 @@ Show the hero render in the reply when the client can display it
 | `blender-mcp` not found | official client not installed | `uv tool install --python 3.11 "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp"` |
 | Calls hang or handshake errors | community `blender-mcp` wrapper, or legacy addon on 9876 | configs must run the uv-tool `blender-mcp`; keep `scripts/addons/blender_mcp.py` disabled |
 | MCP server listed but no tools | client started before config existed | restart the client |
-| Scene edits hit the wrong file | user's own Blender session | confirm the open file is `Models/<slug>/<slug>.blend` |
+| Scene edits hit the wrong file | user's own Blender session | confirm the open file is `models/<slug>/<slug>.blend` |
 | Blender 5.2 operator/API changed | API drift | `search_api_docs` / `get_python_api_docs` instead of guessing |
 
 ## 10. Do not

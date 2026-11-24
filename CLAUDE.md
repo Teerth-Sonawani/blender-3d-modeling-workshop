@@ -8,7 +8,7 @@ Short version:
 - One job only: build 3D models in Blender through the `blender` MCP server (official
   Blender MCP extension + `blender-mcp` stdio client).
 - Run `python scripts/preflight.py`, then confirm MCP with `get_objects_summary`.
-- For each request, create `Models/<subject-slug>/` with `python scripts/new_model.py <slug>`.
+- For each request, create `models/<subject-slug>/` with `python scripts/new_model.py <slug>`.
 - Read `.claude/skills/blender-director/SKILL.md` plus the discipline/style skills in
   `.claude/skills/` before modeling.
 - Build **one sub-part at a time**: the parts manifest in `NOTES.md` fixes the order, and a

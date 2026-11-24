@@ -4,7 +4,7 @@ Creates a fresh scene (only if the open file is the untouched factory startup),
 metric units, the part collections and studio collections, then saves the
 working .blend. Prints scene state and Cycles devices for render planning.
 
-Run through: python scripts/mcp_call.py exec Models/golden-desert-eagle/scripts/00_scaffold.py
+Run through: python scripts/mcp_call.py exec models/golden-desert-eagle/scripts/00_scaffold.py
 """
 
 import bpy

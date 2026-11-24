@@ -14,15 +14,15 @@ and then proves the result with a script that re-measures the files on disk.
 <table>
 <tr>
 <td align="center" width="33%">
-<a href="Models/mosin-nagant-m91-30/NOTES.md"><img src="docs/img/mosin-nagant.jpg" width="100%"></a>
+<a href="models/mosin-nagant-m91-30/NOTES.md"><img src="docs/img/mosin-nagant.jpg" width="100%"></a>
 <br><sub><b>Mosin-Nagant M91/30</b><br>25,940 tris</sub>
 </td>
 <td align="center" width="33%">
-<a href="Models/mauser-c96-original/NOTES.md"><img src="docs/img/mauser-c96.jpg" width="100%"></a>
+<a href="models/mauser-c96-original/NOTES.md"><img src="docs/img/mauser-c96.jpg" width="100%"></a>
 <br><sub><b>Mauser C96</b><br>33,277 tris</sub>
 </td>
 <td align="center" width="33%">
-<a href="Models/golden-desert-eagle/NOTES.md"><img src="docs/img/desert-eagle.jpg" width="100%"></a>
+<a href="models/golden-desert-eagle/NOTES.md"><img src="docs/img/desert-eagle.jpg" width="100%"></a>
 <br><sub><b>Golden Desert Eagle</b><br>25,458 tris</sub>
 </td>
 </tr>
@@ -65,7 +65,7 @@ block in each record. Exit code 1 means the record and the files disagree.
 
 | Step | What happens |
 |---|---|
-| **1 · Scaffold** | `python scripts/new_model.py <slug>` creates `Models/<slug>/` and a brief skeleton |
+| **1 · Scaffold** | `python scripts/new_model.py <slug>` creates `models/<slug>/` and a brief skeleton |
 | **2 · Plan** | A parts manifest is written before any geometry: every sub-part, its measured dimensions, its tri budget, its detail spec |
 | **3 · Build** | Parts are built in dependency order, one per MCP call, each passing its own gate — measured dimensions, programmatically counted details, an inspected close-up render |
 | **4 · Assemble** | UVs, materials, lights, hero and detail renders |
@@ -79,9 +79,9 @@ looks right — it is finished when each part is measurably correct on its own.
 
 | Model | Subject | Tris | Materials | Collision | Deliverables |
 |---|---|---|---|---|---|
-| **[Mosin-Nagant M91/30](Models/mosin-nagant-m91-30/NOTES.md)** | WW2 bolt-action rifle | 25,940 | 5 (3 baked) | 4 `UCX_` | [hero](Models/mosin-nagant-m91-30/renders/hero.png) · GLB 5.1 MB · FBX 4.8 MB |
-| **[Mauser C96](Models/mauser-c96-original/NOTES.md)** | 1896 semi-automatic pistol | 33,277 | 4 | 4 `UCX_` | [hero](Models/mauser-c96-original/renders/hero.png) · GLB 1.0 MB · FBX 0.9 MB |
-| **[Golden Desert Eagle](Models/golden-desert-eagle/NOTES.md)** | .50 AE pistol, gold titanium | 25,458 | 5 | none — render-only | [hero](Models/golden-desert-eagle/renders/hero_34.png) · GLB 0.7 MB · FBX 0.5 MB |
+| **[Mosin-Nagant M91/30](models/mosin-nagant-m91-30/NOTES.md)** | WW2 bolt-action rifle | 25,940 | 5 (3 baked) | 4 `UCX_` | [hero](models/mosin-nagant-m91-30/renders/hero.png) · GLB 5.1 MB · FBX 4.8 MB |
+| **[Mauser C96](models/mauser-c96-original/NOTES.md)** | 1896 semi-automatic pistol | 33,277 | 4 | 4 `UCX_` | [hero](models/mauser-c96-original/renders/hero.png) · GLB 1.0 MB · FBX 0.9 MB |
+| **[Golden Desert Eagle](models/golden-desert-eagle/NOTES.md)** | .50 AE pistol, gold titanium | 25,458 | 5 | none — render-only | [hero](models/golden-desert-eagle/renders/hero_34.png) · GLB 0.7 MB · FBX 0.5 MB |
 
 Each folder holds an editable `.blend`, the exports, the full render set, the references used,
 and the `bpy` scripts that were actually executed.
@@ -142,14 +142,14 @@ uv tool install --python 3.11 \
 | `scripts/new_model.py` | Creates a standard model folder + brief skeleton |
 | `scripts/verify_model.py` | Audits a delivery against its own record (`--all` for every model) |
 | `scripts/mcp_call.py` | Fallback MCP stdio client for hosts with no MCP tools loaded |
-| `Models/` | All output, one folder per model |
+| `models/` | All output, one folder per model |
 | `docs/MCP_SETUP.md` | Official MCP chain, tool catalog, install commands |
 | `docs/SKILLS_GUIDE.md` | Upstream skill index and workflows |
 
 Per model:
 
 ```
-Models/<slug>/
+models/<slug>/
 ├── NOTES.md          # brief, detail spec, gate evidence, QA verdict
 ├── <slug>.blend      # editable Blender scene
 ├── versions/         # gate snapshots (_v01_blockout … _v04_export)

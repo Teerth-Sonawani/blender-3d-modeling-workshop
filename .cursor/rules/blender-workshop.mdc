@@ -10,7 +10,7 @@ MCP extension and the skill pack in `.cursor/skills/`.
 
 - Read `AGENTS.md` at the project root before any work. It is the operating manual.
 - Run `python scripts/preflight.py`, then verify MCP with `get_objects_summary`.
-- Every request gets its own folder: `Models/<subject-slug>/` (use
+- Every request gets its own folder: `models/<subject-slug>/` (use
   `python scripts/new_model.py <slug>`).
 - Read `blender-director` and the relevant discipline/style SKILL.md files before modeling.
 - One Blender unit = one meter. `SM_` / `MAT_` / `COL_` naming. Save at every phase gate.

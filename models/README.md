@@ -9,7 +9,7 @@ One folder per model request. Slug = the **subject**, lowercase kebab-case, 2–
 | [`golden-desert-eagle/`](golden-desert-eagle/) | .50 AE pistol, gold titanium | 25,458 | none — render-only |
 
 ```
-Models/ww2-rifle/
+models/ww2-rifle/
 ├── NOTES.md          # brief, detail spec, gate evidence, QA verdict
 ├── ww2-rifle.blend   # current Blender scene
 ├── versions/         # gate snapshots (_v01_blockout … _v04_export)
